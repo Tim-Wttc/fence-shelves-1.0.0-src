@@ -19,12 +19,21 @@ jobs:
 
       - name: Build
         run: |
+          GRADLEW=$(find . -name gradlew -not -path "./.git/*" | head -n 1)
+          if [ -z "$GRADLEW" ]; then
+            echo "gradlew not found. Files in the repository:"
+            find . -not -path "./.git/*" -type f | head -n 100
+            exit 1
+          fi
+          cd "$(dirname "$GRADLEW")"
           chmod +x gradlew
           ./gradlew build --no-daemon
+          mkdir -p "$GITHUB_WORKSPACE/out"
+          cp build/libs/*.jar "$GITHUB_WORKSPACE/out/"
 
       - uses: actions/upload-artifact@v4
         with:
           name: fence-shelves-jar
           path: |
-            build/libs/*.jar
-            !build/libs/*-sources.jar
+            out/*.jar
+            !out/*-sources.jar
