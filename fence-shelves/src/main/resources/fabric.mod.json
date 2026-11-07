@@ -1,0 +1,20 @@
+{
+	"schemaVersion": 1,
+	"id": "fence_shelves",
+	"version": "${version}",
+	"name": "Fence Shelves",
+	"description": "Shelves behave like fences: they are 1.5 blocks tall for collision, so nothing can jump on or over them, and entities recognise them as fences.",
+	"authors": [
+		"You"
+	],
+	"license": "CC0-1.0",
+	"environment": "*",
+	"mixins": [
+		"fence_shelves.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25"
+	}
+}
